@@ -2,6 +2,8 @@
 
 #include <Vast.h>
 
+#include <Board2D/BoardFlipbook.h>
+
 using namespace Vast;
 
 REG_CLASS(WD::LeftShooterController)
@@ -12,9 +14,17 @@ namespace WD {
 	class LeftShooterController : public ScriptableEntity
 	{
 	public:
+		enum class ShooterState : uint16
+		{ 
+			Idle = 1, Walking = 2
+		};
+
 		void OnCreate() override
 		{
-			m_Arena = GetEntityByName("Arena")[0];
+			m_Flipbook = CreateScope<Board2D::Flipbook>(GetComponent<RenderComponent>().Texture);
+			m_Flipbook->PushTexture((uint16)ShooterState::Idle, GetComponent<RenderComponent>().Texture);
+			m_Flipbook->PushTexture((uint16)ShooterState::Walking, GetEntityByName("WalkTexture")[0].GetComponent<RenderComponent>().Texture);
+			m_Arena = GetEntityByName("1Arena")[0];
 		}
 
 		void OnUpdate(Timestep ts) override
@@ -33,6 +43,13 @@ namespace WD {
 
 			pos.x += m_Acc.x * ts;
 			pos.y += m_Acc.y * ts;
+
+			if (m_Acc.x >= 1.0f || m_Acc.y >= 1.0f)
+				m_Flipbook->ActivateState((uint16)ShooterState::Walking);
+			else	
+				m_Flipbook->ActivateState((uint16)ShooterState::Idle);
+
+			GetComponent<RenderComponent>().Texture = m_Flipbook->GetCurrentTexture();
 		}
 	private:
 		void EmitBullet()
@@ -42,9 +59,12 @@ namespace WD {
 			bullet.GetComponent<TransformComponent>().Translation = GetComponent<TransformComponent>().Translation;
 		}
 	private:
+		Scope<Board2D::Flipbook> m_Flipbook;
 		Entity m_Arena;
+
+		// Physics
 		Vector2 m_Acc = { 0.0f, 0.0f };
-		float m_Friction = 0.05f;
+		float m_Friction = 0.01f;
 		float m_Speed = 8.0f;
 	};
 
