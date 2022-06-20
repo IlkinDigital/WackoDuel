@@ -1,5 +1,39 @@
 Scene: Untitled
 Entities:
+  - Entity: 17391546185383784619
+    TagComponent:
+      Tag: Shooter1
+    TransformComponent:
+      Translation: [-1.8599999, -0.129999995, 0.100000001]
+      Rotation: [0, -0, 0]
+      Scale: [0.239999995, 0.314399987, 0.239999995]
+    RenderComponent:
+      Color: [0.875, 0.296370953, 0.296370953, 1]
+      Texture: D:\Lester_Files\dev\VastProjects\WackoDuel\Content\Assets\Textures\sprites\characters\single.png
+    NativeScriptComponent:
+      Name: WD::LeftShooterController
+  - Entity: 17785914018459294890
+    TagComponent:
+      Tag: Shooter2
+    TransformComponent:
+      Translation: [2.20000005, -0.129999995, 0.100000001]
+      Rotation: [0, -0, 0]
+      Scale: [0.239999995, 0.29519999, 0.239999995]
+    RenderComponent:
+      Color: [0.389698207, 0.296370983, 0.875, 1]
+      Texture: D:\Lester_Files\dev\VastProjects\WackoDuel\Content\Assets\Textures\sprites\characters\single.png
+    NativeScriptComponent:
+      Name: WD::RightShooterController
+  - Entity: 11217488315255182057
+    TagComponent:
+      Tag: Arena
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, -0, 0]
+      Scale: [10.7462635, 6.55259991, 6.55259991]
+    RenderComponent:
+      Color: [0.60197717, 0.792890549, 0.838709712, 1]
+      Texture: D:\Lester_Files\dev\VastProjects\WackoDuel\Content\Assets\Textures\Arena.png
   - Entity: 2978512748353262554
     TagComponent:
       Tag: Camera
@@ -17,37 +51,3 @@ Entities:
         OrthographicNear: -100
         OrthographicFar: 100
       Primary: true
-  - Entity: 11217488315255182057
-    TagComponent:
-      Tag: Background
-    TransformComponent:
-      Translation: [0, 0, 0]
-      Rotation: [0, -0, 0]
-      Scale: [10.7462635, 6.55259991, 6.55259991]
-    RenderComponent:
-      Color: [0.60197717, 0.792890549, 0.838709712, 1]
-      Texture: C:\LesterFiles\dev\VastProjects\WackoDuel\Content\Assets\Textures\Arena.png
-  - Entity: 17785914018459294890
-    TagComponent:
-      Tag: Shooter2
-    TransformComponent:
-      Translation: [2.20000005, -0.129999995, 0.100000001]
-      Rotation: [0, -0, 0]
-      Scale: [0.239999995, 0.239999995, 0.239999995]
-    RenderComponent:
-      Color: [0.389698207, 0.296370983, 0.875, 1]
-      Texture: ""
-    NativeScriptComponent:
-      Name: WD::RightShooterController
-  - Entity: 17391546185383784619
-    TagComponent:
-      Tag: Shooter1
-    TransformComponent:
-      Translation: [-1.8599999, -0.129999995, 0.100000001]
-      Rotation: [0, -0, 0]
-      Scale: [0.239999995, 0.239999995, 0.239999995]
-    RenderComponent:
-      Color: [0.875, 0.296370953, 0.296370953, 1]
-      Texture: ""
-    NativeScriptComponent:
-      Name: WD::LeftShooterController
