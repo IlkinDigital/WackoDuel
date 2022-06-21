@@ -83,7 +83,7 @@
       <AdditionalIncludeDirectories>Source;..\..\Projects\VastEngine\Vast\Source;..\..\Projects\VastEngine\Vast\Source\Vast;..\..\Projects\VastEngine\Vast\Source\Vast\Core;..\..\Projects\VastEngine\Vast\Vendor\spdlog\include;..\..\Projects\VastEngine\Vast\Vendor\entt;..\..\Projects\VastEngine\Vast\Vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
