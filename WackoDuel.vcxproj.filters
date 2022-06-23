@@ -11,11 +11,14 @@
     </ClInclude>
     <ClInclude Include="Source\ShooterController.h" />
     <ClInclude Include="Source\enginepch.h" />
+    <ClInclude Include="Source\Header.h" />
+    <ClInclude Include="Source\BulletScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Generated\Generated.cpp">
       <Filter>Generated</Filter>
     </ClCompile>
     <ClCompile Include="Source\enginepch.cpp" />
+    <ClCompile Include="Source\BulletScript.cpp" />
   </ItemGroup>
 </Project>

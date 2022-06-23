@@ -140,11 +140,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\BulletScript.h" />
     <ClInclude Include="Source\Generated\Generated.h" />
+    <ClInclude Include="Source\Header.h" />
     <ClInclude Include="Source\ShooterController.h" />
     <ClInclude Include="Source\enginepch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BulletScript.cpp" />
     <ClCompile Include="Source\Generated\Generated.cpp" />
     <ClCompile Include="Source\enginepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

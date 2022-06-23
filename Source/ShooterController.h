@@ -5,6 +5,8 @@
 #include <Board2D/BoardFlipbook.h>
 #include <Board2D/BoardStateMachine.h>
 
+#include "BulletScript.h"
+
 using namespace Vast;
 
 REG_CLASS(WD::LeftShooterController)
@@ -24,23 +26,23 @@ namespace WD {
 		{
 			m_RightFB = CreateRef<Board2D::Flipbook>();
 			m_RightFB->SetTimeline(0.7f);
-			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk1")[0].GetComponent<RenderComponent>().Texture, 0.45f);
-			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk2")[0].GetComponent<RenderComponent>().Texture, 0.9f);			
+			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
+			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);			
 			
 			m_LeftFB = CreateRef<Board2D::Flipbook>();
 			m_LeftFB->SetTimeline(0.7f);
-			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk1")[0].GetComponent<RenderComponent>().Texture, 0.45f);
-			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk2")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
+			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
 			
 			m_UpFB = CreateRef<Board2D::Flipbook>();
 			m_UpFB->SetTimeline(0.7f);
-			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk1")[0].GetComponent<RenderComponent>().Texture, 0.45f);
-			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk2")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
+			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
 			
 			m_DownFB = CreateRef<Board2D::Flipbook>();
 			m_DownFB->SetTimeline(0.7f);
-			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk1")[0].GetComponent<RenderComponent>().Texture, 0.45f);
-			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk2")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
+			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
 
 			m_RightIdle = CreateRef<Board2D::Flipbook>();
 			m_RightIdle->SetTimeline(1.0f);
@@ -58,15 +60,13 @@ namespace WD {
 			m_DownIdle->SetTimeline(0.7f);
 			m_DownIdle->PushKeyFrame(GetEntityByName("DownIdle")[0].GetComponent<RenderComponent>().Texture, 0.9f);
 
-			m_Animator = CreateScope<Board2D::StateMachine>(m_DownIdle);
+			m_Animator = CreateScope<Board2D::StateMachine>();
 			m_Animator->PushFlipbook(Idle, m_DownIdle);
 			m_Animator->PushFlipbook(Walking, m_DownFB);
 
 			m_Animator->ActivateState(Idle);
 
 			m_Arena = GetEntityByName("1Arena")[0];
-
-			CreateEntity("Bullet");
 		}
 
 		void OnUpdate(Timestep ts) override
@@ -77,34 +77,36 @@ namespace WD {
 				m_Animator->EditState(Idle, m_UpIdle);
 				m_Animator->EditState(Walking, m_UpFB);
 				m_Acc.y += m_Speed * ts;
+				m_Animator->ActivateState(Walking);
 			}
 			else if (Input::IsPressed(Key::S))
 			{
 				m_Animator->EditState(Idle, m_DownIdle);
 				m_Animator->EditState(Walking, m_DownFB);
 				m_Acc.y -= m_Speed * ts;
+				m_Animator->ActivateState(Walking);
 			}
 			else if (Input::IsPressed(Key::D))
 			{
 				m_Animator->EditState(Idle, m_RightIdle);
 				m_Animator->EditState(Walking, m_RightFB);
 				m_Acc.x += m_Speed * ts;
+				m_Animator->ActivateState(Walking);
 			}
 			else if (Input::IsPressed(Key::A))
 			{
 				m_Animator->EditState(Idle, m_LeftIdle);
 				m_Animator->EditState(Walking, m_LeftFB);
 				m_Acc.x -= m_Speed * ts;
+				m_Animator->ActivateState(Walking);
 			}
 			else
+			{
 				m_Acc = { 0.0f, 0.0f };
+				m_Animator->ActivateState(Idle);
+			}
 
 			m_Acc *= std::pow(m_Friction, (float)ts);
-
-			if (m_Acc.x >= 1.0f || m_Acc.y >= 1.0f || m_Acc.x <= -1.0f || m_Acc.y <= -1.0f)
-				m_Animator->ActivateState(Walking);
-			else
-				m_Animator->ActivateState(Idle);
 
 			pos.x += m_Acc.x * ts;
 			pos.y += m_Acc.y * ts;
@@ -113,15 +115,39 @@ namespace WD {
 
 			GetComponent<RenderComponent>().Texture = m_Animator->GetCurrentFlipbook()->GetCurrentTexture();
 		}
+
+		void OnEvent(Event& event) override
+		{
+			EventDispatcher dispatcher(event);
+			dispatcher.Dispatch<KeyPressedEvent>(VAST_BIND_EVENT(OnKeyPressed));
+		}
+
+		bool OnKeyPressed(KeyPressedEvent& event)
+		{
+			if (event.GetKeyCode() == Key::LeftShift)
+			{
+				EmitBullet();
+			}
+
+			return false;
+		}
+
+		const Vector2& GetAcceleration() const { return m_Acc; }
 	private:
 		void EmitBullet()
 		{
 			Entity bullet = CreateEntity("Bullet");
-			bullet.AddOrReplaceComponent<TransformComponent>().Translation = GetComponent<TransformComponent>().Translation;
+
+			auto& tc = bullet.GetComponent<TransformComponent>();
+			tc.Translation = GetComponent<TransformComponent>().Translation;
+			tc.Translation.z += 1.0f;
+			tc.Scale = { 0.3f, 0.3f, 0.3f };
+			bullet.AddComponent<RenderComponent>().Color = { 0.1f, 0.1f, 0.1f, 1.0f };
+			bullet.AddComponent<NativeScriptComponent>().Bind<BulletScript>();
 		}
 	private:
-		Ref<Board2D::Flipbook> m_Active;
 		Scope<Board2D::StateMachine> m_Animator;
+
 		Ref<Board2D::Flipbook> m_RightFB;
 		Ref<Board2D::Flipbook> m_LeftFB;
 		Ref<Board2D::Flipbook> m_UpFB;
@@ -186,7 +212,7 @@ namespace WD {
 			m_DownIdle->SetTimeline(0.7f);
 			m_DownIdle->PushKeyFrame(GetEntityByName("DownIdle")[0].GetComponent<RenderComponent>().Texture, 0.9f);
 
-			m_Animator = CreateScope<Board2D::StateMachine>(m_DownIdle);
+			m_Animator = CreateScope<Board2D::StateMachine>();
 			m_Animator->PushFlipbook(Idle, m_DownIdle);
 			m_Animator->PushFlipbook(Walking, m_DownFB);
 
