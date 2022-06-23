@@ -6,19 +6,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\BulletScript.h" />
     <ClInclude Include="Source\Generated\Generated.h">
       <Filter>Generated</Filter>
     </ClInclude>
     <ClInclude Include="Source\ShooterController.h" />
     <ClInclude Include="Source\enginepch.h" />
-    <ClInclude Include="Source\Header.h" />
-    <ClInclude Include="Source\BulletScript.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BulletScript.cpp" />
     <ClCompile Include="Source\Generated\Generated.cpp">
       <Filter>Generated</Filter>
     </ClCompile>
     <ClCompile Include="Source\enginepch.cpp" />
-    <ClCompile Include="Source\BulletScript.cpp" />
+    <ClCompile Include="Source\ShooterController.cpp" />
   </ItemGroup>
 </Project>

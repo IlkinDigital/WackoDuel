@@ -142,7 +142,6 @@
   <ItemGroup>
     <ClInclude Include="Source\BulletScript.h" />
     <ClInclude Include="Source\Generated\Generated.h" />
-    <ClInclude Include="Source\Header.h" />
     <ClInclude Include="Source\ShooterController.h" />
     <ClInclude Include="Source\enginepch.h" />
   </ItemGroup>
@@ -152,6 +151,7 @@
     <ClCompile Include="Source\enginepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\ShooterController.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

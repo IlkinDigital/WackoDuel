@@ -71,6 +71,8 @@ namespace WD {
 
 		void OnUpdate(Timestep ts) override
 		{
+			m_LastShot += ts;
+
 			auto& pos = GetComponent<TransformComponent>().Translation;
 			if (Input::IsPressed(Key::W))
 			{
@@ -124,27 +126,27 @@ namespace WD {
 
 		bool OnKeyPressed(KeyPressedEvent& event)
 		{
-			if (event.GetKeyCode() == Key::LeftShift)
+			if (event.GetKeyCode() == Key::LeftShift && m_LastShot >= 0.25f)
 			{
 				EmitBullet();
+				m_LastShot = 0.0f;
 			}
 
 			return false;
 		}
 
+		void OnDamageRecieve(int damage)
+		{
+			m_Health -= damage;
+			if (m_Health <= 0)
+				DestroySelf();
+			else
+				GetComponent<TransformComponent>().Scale -= 0.05f;
+		}
+
 		const Vector2& GetAcceleration() const { return m_Acc; }
 	private:
-		void EmitBullet()
-		{
-			Entity bullet = CreateEntity("Bullet");
-
-			auto& tc = bullet.GetComponent<TransformComponent>();
-			tc.Translation = GetComponent<TransformComponent>().Translation;
-			tc.Translation.z += 1.0f;
-			tc.Scale = { 0.3f, 0.3f, 0.3f };
-			bullet.AddComponent<RenderComponent>().Color = { 0.1f, 0.1f, 0.1f, 1.0f };
-			bullet.AddComponent<NativeScriptComponent>().Bind<BulletScript>();
-		}
+		void EmitBullet();
 	private:
 		Scope<Board2D::StateMachine> m_Animator;
 
@@ -159,6 +161,10 @@ namespace WD {
 		Ref<Board2D::Flipbook> m_DownIdle;
 
 		Entity m_Arena;
+
+		float m_LastShot = 0.0f;
+
+		int m_Health = 100;
 
 		// Physics
 		Vector2 m_Acc = { 0.0f, 0.0f };
@@ -178,23 +184,23 @@ namespace WD {
 		{
 			m_RightFB = CreateRef<Board2D::Flipbook>();
 			m_RightFB->SetTimeline(0.7f);
-			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk1")[0].GetComponent<RenderComponent>().Texture, 0.45f);
-			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk2")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
+			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
 
 			m_LeftFB = CreateRef<Board2D::Flipbook>();
 			m_LeftFB->SetTimeline(0.7f);
-			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk1")[0].GetComponent<RenderComponent>().Texture, 0.45f);
-			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk2")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
+			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
 
 			m_UpFB = CreateRef<Board2D::Flipbook>();
 			m_UpFB->SetTimeline(0.7f);
-			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk1")[0].GetComponent<RenderComponent>().Texture, 0.45f);
-			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk2")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
+			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
 
 			m_DownFB = CreateRef<Board2D::Flipbook>();
 			m_DownFB->SetTimeline(0.7f);
-			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk1")[0].GetComponent<RenderComponent>().Texture, 0.45f);
-			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk2")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
+			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
 
 			m_RightIdle = CreateRef<Board2D::Flipbook>();
 			m_RightIdle->SetTimeline(1.0f);
@@ -223,55 +229,85 @@ namespace WD {
 
 		void OnUpdate(Timestep ts) override
 		{
+			m_LastShot += ts;
+
 			auto& pos = GetComponent<TransformComponent>().Translation;
 			if (Input::IsPressed(Key::Up))
 			{
 				m_Animator->EditState(Idle, m_UpIdle);
 				m_Animator->EditState(Walking, m_UpFB);
-				pos.y += m_Speed * ts;
+				m_Acc.y += m_Speed * ts;
+				m_Animator->ActivateState(Walking);
 			}
 			else if (Input::IsPressed(Key::Down))
 			{
 				m_Animator->EditState(Idle, m_DownIdle);
 				m_Animator->EditState(Walking, m_DownFB);
-				pos.y -= m_Speed * ts;
+				m_Acc.y -= m_Speed * ts;
+				m_Animator->ActivateState(Walking);
 			}
 			else if (Input::IsPressed(Key::Right))
 			{
 				m_Animator->EditState(Idle, m_RightIdle);
 				m_Animator->EditState(Walking, m_RightFB);
-				pos.x += m_Speed * ts;
+				m_Acc.x += m_Speed * ts;
+				m_Animator->ActivateState(Walking);
 			}
 			else if (Input::IsPressed(Key::Left))
 			{
 				m_Animator->EditState(Idle, m_LeftIdle);
 				m_Animator->EditState(Walking, m_LeftFB);
-				pos.x -= m_Speed * ts;
-			}
-			
-
-			if (m_LastTranslation != pos)
+				m_Acc.x -= m_Speed * ts;
 				m_Animator->ActivateState(Walking);
+			}
 			else
+			{
+				m_Acc = { 0.0f, 0.0f };
 				m_Animator->ActivateState(Idle);
+			}
 
+			m_Acc *= std::pow(m_Friction, (float)ts);
+
+			pos.x += m_Acc.x * ts;
+			pos.y += m_Acc.y * ts;
 
 			m_Animator->GetCurrentFlipbook()->Update(ts);
 
 			GetComponent<RenderComponent>().Texture = m_Animator->GetCurrentFlipbook()->GetCurrentTexture();
-			m_LastTranslation = pos;
 		}
-	private:
-		void EmitBullet()
-		{
-			Entity bullet = CreateEntity("Bullet");
 
-			bullet.GetComponent<TransformComponent>().Translation = GetComponent<TransformComponent>().Translation;
+		void OnEvent(Event& event) override
+		{
+			EventDispatcher dispatcher(event);
+			dispatcher.Dispatch<KeyPressedEvent>(VAST_BIND_EVENT(OnKeyPressed));
 		}
+
+		bool OnKeyPressed(KeyPressedEvent& event)
+		{
+			if (event.GetKeyCode() == Key::RightShift && m_LastShot >= 0.25f)
+			{
+				EmitBullet();
+				m_LastShot = 0.0f;
+			}
+
+			return false;
+		}
+
+		void OnDamageRecieve(int damage)
+		{
+			m_Health -= damage;
+			if (m_Health <= 0)
+				DestroySelf();
+			else
+				GetComponent<TransformComponent>().Scale -= 0.05f;
+		}
+
+		const Vector2& GetAcceleration() const { return m_Acc; }
 	private:
-		Vector3 m_LastTranslation;
-		Ref<Board2D::Flipbook> m_Active;
+		void EmitBullet();
+	private:
 		Scope<Board2D::StateMachine> m_Animator;
+
 		Ref<Board2D::Flipbook> m_RightFB;
 		Ref<Board2D::Flipbook> m_LeftFB;
 		Ref<Board2D::Flipbook> m_UpFB;
@@ -284,7 +320,14 @@ namespace WD {
 
 		Entity m_Arena;
 
-		float m_Speed = 1.2f;
+		float m_LastShot = 0.0f;
+
+		int m_Health = 100;
+
+		// Physics
+		Vector2 m_Acc = { 0.0f, 0.0f };
+		float m_Friction = 0.01f;
+		float m_Speed = 8.0f;
 	};
 
 }
