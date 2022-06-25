@@ -126,7 +126,7 @@ namespace WD {
 
 		bool OnKeyPressed(KeyPressedEvent& event)
 		{
-			if (event.GetKeyCode() == Key::LeftShift && event.GetRepeatCount() == 0 && m_LastShot >= 0.25f)
+			if (event.GetKeyCode() == Key::LeftShift && event.GetRepeatCount() == 0 && m_LastShot >= 0.2f)
 			{
 				EmitBullet();
 				m_LastShot = 0.0f;
@@ -284,7 +284,7 @@ namespace WD {
 
 		bool OnKeyPressed(KeyPressedEvent& event)
 		{
-			if (event.GetKeyCode() == Key::RightShift && m_LastShot >= 0.25f)
+			if (event.GetKeyCode() == Key::RightShift && event.GetRepeatCount() == 0 && m_LastShot >= 0.2f)
 			{
 				EmitBullet();
 				m_LastShot = 0.0f;

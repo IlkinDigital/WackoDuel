@@ -1,0 +1,183 @@
+Scene: Untitled
+Entities:
+  - Entity: 11924119613462551340
+    TagComponent:
+      Tag: RightWalk2
+    TransformComponent:
+      Translation: [2.23000002, -3.51999974, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\RightWalk2.png
+  - Entity: 7378105382256870909
+    TagComponent:
+      Tag: RightIdle
+    TransformComponent:
+      Translation: [0, -3.51999974, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\RightIdle.png
+  - Entity: 10626316093899594542
+    TagComponent:
+      Tag: RightWalk1
+    TransformComponent:
+      Translation: [1.13, -3.51999974, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\RightWalk1.png
+  - Entity: 1325603715118448692
+    TagComponent:
+      Tag: LeftWalk2
+    TransformComponent:
+      Translation: [2.19000006, -2.29999995, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\LeftWalk2.png
+  - Entity: 9667383040732562194
+    TagComponent:
+      Tag: LeftIdle
+    TransformComponent:
+      Translation: [0, -2.29999995, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\LeftIdle.png
+  - Entity: 1379413636523061442
+    TagComponent:
+      Tag: LeftWalk1
+    TransformComponent:
+      Translation: [1.10000002, -2.29999995, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\LeftWalk1.png
+  - Entity: 17366979057928699108
+    TagComponent:
+      Tag: UpWalk2
+    TransformComponent:
+      Translation: [2.17000008, -1.13999999, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\UpWalk2.png
+  - Entity: 16516898561189515260
+    TagComponent:
+      Tag: UpIdle
+    TransformComponent:
+      Translation: [0, -1.13999999, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\UpIdle.png
+  - Entity: 13932051544026249519
+    TagComponent:
+      Tag: UpWalk1
+    TransformComponent:
+      Translation: [1.10000002, -1.13999999, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\UpWalk1.png
+  - Entity: 6959410222388202534
+    TagComponent:
+      Tag: DownWalk2
+    TransformComponent:
+      Translation: [2.15999985, 0, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\DownWalk2.png
+  - Entity: 14132461646859220086
+    TagComponent:
+      Tag: DownIdle
+    TransformComponent:
+      Translation: [0, 0, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\DownIdle.png
+  - Entity: 1161018004698075892
+    TagComponent:
+      Tag: DownWalk1
+    TransformComponent:
+      Translation: [1.12, 0, 10000]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\DownWalk1.png
+  - Entity: 17391546185383784619
+    TagComponent:
+      Tag: Shooter1
+    TransformComponent:
+      Translation: [-3, 0, 0.200000003]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    RenderComponent:
+      Color: [0.875, 0.296370953, 0.296370953, 1]
+      Texture: \Assets\Textures\DownIdle.png
+    NativeScriptComponent:
+      Name: WD::LeftShooterController
+  - Entity: 17785914018459294890
+    TagComponent:
+      Tag: Shooter2
+    TransformComponent:
+      Translation: [3, -0.129999995, 0.100000001]
+      Rotation: [0, -0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    RenderComponent:
+      Color: [0.389698207, 0.296370983, 0.875, 1]
+      Texture: \Assets\Textures\DownIdle.png
+    NativeScriptComponent:
+      Name: WD::RightShooterController
+  - Entity: 11217488315255182057
+    TagComponent:
+      Tag: 1Arena
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, -0, 0]
+      Scale: [10.7462635, 6.55259991, 6.55259991]
+    RenderComponent:
+      Color: [0.60197717, 0.792890549, 0.838709712, 1]
+      Texture: \Assets\Textures\Arena.png
+  - Entity: 2978512748353262554
+    TagComponent:
+      Tag: Camera
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 1
+        PerspectiveFOV: 1
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 6
+        OrthographicNear: -10
+        OrthographicFar: 10
+      Primary: true
+  - Entity: 5588474100938158132
+    TagComponent:
+      Tag: Rock
+    TransformComponent:
+      Translation: [0, 0, -14.9799995]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    RenderComponent:
+      Color: [0, 0, 0, 1]
+      Texture: \Assets\Textures\rock.png
