@@ -8,7 +8,7 @@ REG_CLASS(WD::BulletScript)
 
 namespace WD {
 
-	class BulletScript : public ScriptableEntity
+	class BulletScript : public NativeScript
 	{
 	public:
 		BulletScript() = default;

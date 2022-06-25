@@ -5,11 +5,14 @@
 
 void WD::BulletScript::OnCreate()
 {
-	auto& nsc = GetEntityByName(m_MasterName)[0].GetComponent<NativeScriptComponent>();
-	m_Direction = ((LeftShooterController*)nsc.Instance)->GetAcceleration();
+	auto* script = (LeftShooterController*)GetEntityByName(m_MasterName)[0].GetComponent<NativeScriptComponent>().Instance;
+	m_Direction = script->GetAcceleration();
 
 	float length = std::sqrtf(m_Direction.x * m_Direction.x + m_Direction.y * m_Direction.y);
 
+	//if (length == 0.0f)
+		//script->GetDirection()
+		
 	m_Direction /= length;
 	
 	GetComponent<RenderComponent>().Texture = GetEntityByName("Rock")[0].GetComponent<RenderComponent>().Texture;

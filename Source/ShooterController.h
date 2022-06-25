@@ -14,7 +14,7 @@ REG_CLASS(WD::RightShooterController)
 
 namespace WD {
 
-	class LeftShooterController : public ScriptableEntity
+	class LeftShooterController : public NativeScript
 	{
 	public:
 		enum ShooterState : uint16
@@ -126,7 +126,7 @@ namespace WD {
 
 		bool OnKeyPressed(KeyPressedEvent& event)
 		{
-			if (event.GetKeyCode() == Key::LeftShift && m_LastShot >= 0.25f)
+			if (event.GetKeyCode() == Key::LeftShift && event.GetRepeatCount() == 0 && m_LastShot >= 0.25f)
 			{
 				EmitBullet();
 				m_LastShot = 0.0f;
@@ -172,7 +172,7 @@ namespace WD {
 		float m_Speed = 8.0f;
 	};
 
-	class RightShooterController : public ScriptableEntity
+	class RightShooterController : public NativeScript
 	{
 	public:
 		enum ShooterState : uint16
