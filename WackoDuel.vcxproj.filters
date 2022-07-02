@@ -18,7 +18,7 @@
     <ClCompile Include="Source\Generated\Generated.cpp">
       <Filter>Generated</Filter>
     </ClCompile>
-    <ClCompile Include="Source\enginepch.cpp" />
     <ClCompile Include="Source\ShooterController.cpp" />
+    <ClCompile Include="Source\enginepch.cpp" />
   </ItemGroup>
 </Project>

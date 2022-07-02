@@ -39,6 +39,7 @@ project 'WackoDuel'
     {
         'Engine/Vast.lib',
         'Engine/GLFW.lib',
+        'Engine/yaml-cpp.lib',
         'Engine/ImGui.lib',
         'Engine/Glad.lib'
     }

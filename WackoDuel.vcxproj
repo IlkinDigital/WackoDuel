@@ -89,7 +89,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Engine\Vast.lib;Engine\GLFW.lib;Engine\ImGui.lib;Engine\Glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine\Vast.lib;Engine\GLFW.lib;Engine\yaml-cpp.lib;Engine\ImGui.lib;Engine\Glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>Binaries\Debug-windows-x86_64\WackoDuel\WackoDuel.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -105,14 +105,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Engine\Vast.lib;Engine\GLFW.lib;Engine\ImGui.lib;Engine\Glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine\Vast.lib;Engine\GLFW.lib;Engine\yaml-cpp.lib;Engine\ImGui.lib;Engine\Glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>Binaries\Release-windows-x86_64\WackoDuel\WackoDuel.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -128,14 +128,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Engine\Vast.lib;Engine\GLFW.lib;Engine\ImGui.lib;Engine\Glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine\Vast.lib;Engine\GLFW.lib;Engine\yaml-cpp.lib;Engine\ImGui.lib;Engine\Glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>Binaries\Distribution-windows-x86_64\WackoDuel\WackoDuel.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -148,10 +148,10 @@
   <ItemGroup>
     <ClCompile Include="Source\BulletScript.cpp" />
     <ClCompile Include="Source\Generated\Generated.cpp" />
+    <ClCompile Include="Source\ShooterController.cpp" />
     <ClCompile Include="Source\enginepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\ShooterController.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

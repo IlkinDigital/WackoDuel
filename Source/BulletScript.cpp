@@ -15,7 +15,7 @@ void WD::BulletScript::OnCreate()
 		
 	m_Direction /= length;
 	
-	GetComponent<RenderComponent>().Texture = GetEntityByName("Rock")[0].GetComponent<RenderComponent>().Texture;
+	GetComponent<RenderComponent>().Texture = LOAD_TEXTURE("/Assets/Textures/rock");
 }
 
 void WD::BulletScript::OnUpdate(Timestep ts)

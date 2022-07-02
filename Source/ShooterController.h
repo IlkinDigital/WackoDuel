@@ -7,10 +7,15 @@
 
 #include "BulletScript.h"
 
+#include "Renderer/Texture2D.h"
+#include "AssetManager/TextureAsset.h"
+
 using namespace Vast;
 
 REG_CLASS(WD::LeftShooterController)
-REG_CLASS(WD::RightShooterController)
+REG_CLASS(WD::RightShooterController) 
+
+#define LOAD_TEXTURE(path) RefCast<Texture2DAsset>(LoadAsset(path))->GetTexture()
 
 namespace WD {
 
@@ -26,39 +31,39 @@ namespace WD {
 		{
 			m_RightFB = CreateRef<Board2D::Flipbook>();
 			m_RightFB->SetTimeline(0.7f);
-			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
-			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);			
-			
+			m_RightFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightWalk1"), 0.4f);
+			m_RightFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightWalk2"), 0.8f);
+
 			m_LeftFB = CreateRef<Board2D::Flipbook>();
 			m_LeftFB->SetTimeline(0.7f);
-			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
-			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
-			
+			m_LeftFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftWalk1"), 0.4f);
+			m_LeftFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftWalk2"), 0.8f);
+
 			m_UpFB = CreateRef<Board2D::Flipbook>();
 			m_UpFB->SetTimeline(0.7f);
-			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
-			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
-			
+			m_UpFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpWalk1"), 0.4f);
+			m_UpFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpWalk2"), 0.8f);
+
 			m_DownFB = CreateRef<Board2D::Flipbook>();
 			m_DownFB->SetTimeline(0.7f);
-			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
-			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
+			m_DownFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownWalk1"), 0.4f);
+			m_DownFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownWalk2"), 0.8f);
 
 			m_RightIdle = CreateRef<Board2D::Flipbook>();
 			m_RightIdle->SetTimeline(1.0f);
-			m_RightIdle->PushKeyFrame(GetEntityByName("RightIdle")[0].GetComponent<RenderComponent>().Texture, 0.5f);
+			m_RightIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightIdle"), 0.5f);
 
 			m_LeftIdle = CreateRef<Board2D::Flipbook>();
 			m_LeftIdle->SetTimeline(0.7f);
-			m_LeftIdle->PushKeyFrame(GetEntityByName("LeftIdle")[0].GetComponent<RenderComponent>().Texture, 0.45f);
+			m_LeftIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftIdle"), 0.45f);
 
 			m_UpIdle = CreateRef<Board2D::Flipbook>();
 			m_UpIdle->SetTimeline(0.7f);
-			m_UpIdle->PushKeyFrame(GetEntityByName("UpIdle")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_UpIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpIdle"), 0.9f);
 
 			m_DownIdle = CreateRef<Board2D::Flipbook>();
 			m_DownIdle->SetTimeline(0.7f);
-			m_DownIdle->PushKeyFrame(GetEntityByName("DownIdle")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_DownIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownIdle"), 0.9f);
 
 			m_Animator = CreateScope<Board2D::StateMachine>();
 			m_Animator->PushFlipbook(Idle, m_DownIdle);
@@ -184,39 +189,39 @@ namespace WD {
 		{
 			m_RightFB = CreateRef<Board2D::Flipbook>();
 			m_RightFB->SetTimeline(0.7f);
-			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
-			m_RightFB->PushKeyFrame(GetEntityByName("RightWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
+			m_RightFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightWalk1"), 0.4f);
+			m_RightFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightWalk2"), 0.8f);
 
 			m_LeftFB = CreateRef<Board2D::Flipbook>();
 			m_LeftFB->SetTimeline(0.7f);
-			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
-			m_LeftFB->PushKeyFrame(GetEntityByName("LeftWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
+			m_LeftFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftWalk1"), 0.4f);
+			m_LeftFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftWalk2"), 0.8f);
 
 			m_UpFB = CreateRef<Board2D::Flipbook>();
 			m_UpFB->SetTimeline(0.7f);
-			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
-			m_UpFB->PushKeyFrame(GetEntityByName("UpWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
+			m_UpFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpWalk1"), 0.4f);
+			m_UpFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpWalk2"), 0.8f);
 
 			m_DownFB = CreateRef<Board2D::Flipbook>();
 			m_DownFB->SetTimeline(0.7f);
-			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk1")[0].GetComponent<RenderComponent>().Texture, 0.4f);
-			m_DownFB->PushKeyFrame(GetEntityByName("DownWalk2")[0].GetComponent<RenderComponent>().Texture, 0.8f);
+			m_DownFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownWalk1"), 0.4f);
+			m_DownFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownWalk2"), 0.8f);
 
 			m_RightIdle = CreateRef<Board2D::Flipbook>();
 			m_RightIdle->SetTimeline(1.0f);
-			m_RightIdle->PushKeyFrame(GetEntityByName("RightIdle")[0].GetComponent<RenderComponent>().Texture, 0.5f);
+			m_RightIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightIdle"), 0.5f);
 
 			m_LeftIdle = CreateRef<Board2D::Flipbook>();
 			m_LeftIdle->SetTimeline(0.7f);
-			m_LeftIdle->PushKeyFrame(GetEntityByName("LeftIdle")[0].GetComponent<RenderComponent>().Texture, 0.45f);
+			m_LeftIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftIdle"), 0.45f);
 
 			m_UpIdle = CreateRef<Board2D::Flipbook>();
 			m_UpIdle->SetTimeline(0.7f);
-			m_UpIdle->PushKeyFrame(GetEntityByName("UpIdle")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_UpIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpIdle"), 0.9f);
 
 			m_DownIdle = CreateRef<Board2D::Flipbook>();
 			m_DownIdle->SetTimeline(0.7f);
-			m_DownIdle->PushKeyFrame(GetEntityByName("DownIdle")[0].GetComponent<RenderComponent>().Texture, 0.9f);
+			m_DownIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownIdle"), 0.9f);
 
 			m_Animator = CreateScope<Board2D::StateMachine>();
 			m_Animator->PushFlipbook(Idle, m_DownIdle);
