@@ -3,6 +3,8 @@
 
 #include "ShooterController.h"
 
+#include "AssetManager/AssetTypes.h"
+
 void WD::BulletScript::OnCreate()
 {
 	auto* script = (LeftShooterController*)GetEntityByName(m_MasterName)[0].GetComponent<NativeScriptComponent>().Instance;
@@ -15,7 +17,7 @@ void WD::BulletScript::OnCreate()
 		
 	m_Direction /= length;
 	
-	GetComponent<RenderComponent>().Texture = LOAD_TEXTURE("/Assets/Textures/rock");
+	GetComponent<RenderComponent>().Texture = LoadAsset<Texture2DAsset>("/Assets/Textures/rock")->GetTexture();
 }
 
 void WD::BulletScript::OnUpdate(Timestep ts)

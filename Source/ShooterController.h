@@ -4,18 +4,15 @@
 
 #include <Board2D/BoardFlipbook.h>
 #include <Board2D/BoardStateMachine.h>
+#include <AssetManager/AssetTypes.h>
 
 #include "BulletScript.h"
 
-#include "Renderer/Texture2D.h"
-#include "AssetManager/TextureAsset.h"
 
 using namespace Vast;
 
 REG_CLASS(WD::LeftShooterController)
 REG_CLASS(WD::RightShooterController) 
-
-#define LOAD_TEXTURE(path) RefCast<Texture2DAsset>(LoadAsset(path))->GetTexture()
 
 namespace WD {
 
@@ -23,51 +20,25 @@ namespace WD {
 	{
 	public:
 		enum ShooterState : uint16
-		{ 
+		{
 			Idle, Walking
 		};
 
 		void OnCreate() override
 		{
-			m_RightFB = CreateRef<Board2D::Flipbook>();
-			m_RightFB->SetTimeline(0.7f);
-			m_RightFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightWalk1"), 0.4f);
-			m_RightFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightWalk2"), 0.8f);
+			m_RightFB = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/RunRight")->GetFlipbook();
+			m_LeftFB = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/RunLeft")->GetFlipbook();
+			m_UpFB = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/RunUp")->GetFlipbook();
+			m_DownFB = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/RunDown")->GetFlipbook();
 
-			m_LeftFB = CreateRef<Board2D::Flipbook>();
-			m_LeftFB->SetTimeline(0.7f);
-			m_LeftFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftWalk1"), 0.4f);
-			m_LeftFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftWalk2"), 0.8f);
-
-			m_UpFB = CreateRef<Board2D::Flipbook>();
-			m_UpFB->SetTimeline(0.7f);
-			m_UpFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpWalk1"), 0.4f);
-			m_UpFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpWalk2"), 0.8f);
-
-			m_DownFB = CreateRef<Board2D::Flipbook>();
-			m_DownFB->SetTimeline(0.7f);
-			m_DownFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownWalk1"), 0.4f);
-			m_DownFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownWalk2"), 0.8f);
-
-			m_RightIdle = CreateRef<Board2D::Flipbook>();
-			m_RightIdle->SetTimeline(1.0f);
-			m_RightIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightIdle"), 0.5f);
-
-			m_LeftIdle = CreateRef<Board2D::Flipbook>();
-			m_LeftIdle->SetTimeline(0.7f);
-			m_LeftIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftIdle"), 0.45f);
-
-			m_UpIdle = CreateRef<Board2D::Flipbook>();
-			m_UpIdle->SetTimeline(0.7f);
-			m_UpIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpIdle"), 0.9f);
-
-			m_DownIdle = CreateRef<Board2D::Flipbook>();
-			m_DownIdle->SetTimeline(0.7f);
-			m_DownIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownIdle"), 0.9f);
+			m_RightIdle = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/IdleRight")->GetFlipbook();
+			m_LeftIdle = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/IdleLeft")->GetFlipbook();
+			m_UpIdle = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/IdleUp")->GetFlipbook();
+			m_DownIdle = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/IdleDown")->GetFlipbook();
 
 			m_Animator = CreateScope<Board2D::StateMachine>();
-			m_Animator->PushFlipbook(Idle, m_DownIdle);
-			m_Animator->PushFlipbook(Walking, m_DownFB);
+			m_Animator->PushFlipbook(Idle, m_RightIdle);
+			m_Animator->PushFlipbook(Walking, m_RightFB);
 
 			m_Animator->ActivateState(Idle);
 
@@ -118,9 +89,7 @@ namespace WD {
 			pos.x += m_Acc.x * ts;
 			pos.y += m_Acc.y * ts;
 
-			m_Animator->GetCurrentFlipbook()->Update(ts);
-
-			GetComponent<RenderComponent>().Texture = m_Animator->GetCurrentFlipbook()->GetCurrentTexture();
+			GetComponent<SpriteComponent>().Flipbook->SetFlipbook(m_Animator->GetCurrentFlipbook());
 		}
 
 		void OnEvent(Event& event) override
@@ -187,45 +156,19 @@ namespace WD {
 
 		void OnCreate() override
 		{
-			m_RightFB = CreateRef<Board2D::Flipbook>();
-			m_RightFB->SetTimeline(0.7f);
-			m_RightFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightWalk1"), 0.4f);
-			m_RightFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightWalk2"), 0.8f);
+			m_RightFB = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/RunRight")->GetFlipbook();
+			m_LeftFB = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/RunLeft")->GetFlipbook();
+			m_UpFB = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/RunUp")->GetFlipbook();
+			m_DownFB = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/RunDown")->GetFlipbook();
 
-			m_LeftFB = CreateRef<Board2D::Flipbook>();
-			m_LeftFB->SetTimeline(0.7f);
-			m_LeftFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftWalk1"), 0.4f);
-			m_LeftFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftWalk2"), 0.8f);
-
-			m_UpFB = CreateRef<Board2D::Flipbook>();
-			m_UpFB->SetTimeline(0.7f);
-			m_UpFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpWalk1"), 0.4f);
-			m_UpFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpWalk2"), 0.8f);
-
-			m_DownFB = CreateRef<Board2D::Flipbook>();
-			m_DownFB->SetTimeline(0.7f);
-			m_DownFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownWalk1"), 0.4f);
-			m_DownFB->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownWalk2"), 0.8f);
-
-			m_RightIdle = CreateRef<Board2D::Flipbook>();
-			m_RightIdle->SetTimeline(1.0f);
-			m_RightIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/RightIdle"), 0.5f);
-
-			m_LeftIdle = CreateRef<Board2D::Flipbook>();
-			m_LeftIdle->SetTimeline(0.7f);
-			m_LeftIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/LeftIdle"), 0.45f);
-
-			m_UpIdle = CreateRef<Board2D::Flipbook>();
-			m_UpIdle->SetTimeline(0.7f);
-			m_UpIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/UpIdle"), 0.9f);
-
-			m_DownIdle = CreateRef<Board2D::Flipbook>();
-			m_DownIdle->SetTimeline(0.7f);
-			m_DownIdle->PushKeyFrame(LOAD_TEXTURE("/Assets/Textures/DownIdle"), 0.9f);
+			m_RightIdle = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/IdleRight")->GetFlipbook();
+			m_LeftIdle = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/IdleLeft")->GetFlipbook();
+			m_UpIdle = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/IdleUp")->GetFlipbook();
+			m_DownIdle = LoadAsset<BoardFlipbookAsset>("/Assets/Animations/IdleDown")->GetFlipbook();
 
 			m_Animator = CreateScope<Board2D::StateMachine>();
-			m_Animator->PushFlipbook(Idle, m_DownIdle);
-			m_Animator->PushFlipbook(Walking, m_DownFB);
+			m_Animator->PushFlipbook(Idle, m_LeftIdle);
+			m_Animator->PushFlipbook(Walking, m_LeftFB);
 
 			m_Animator->ActivateState(Idle);
 
@@ -276,9 +219,7 @@ namespace WD {
 			pos.x += m_Acc.x * ts;
 			pos.y += m_Acc.y * ts;
 
-			m_Animator->GetCurrentFlipbook()->Update(ts);
-
-			GetComponent<RenderComponent>().Texture = m_Animator->GetCurrentFlipbook()->GetCurrentTexture();
+			GetComponent<SpriteComponent>().Flipbook->SetFlipbook(m_Animator->GetCurrentFlipbook());
 		}
 
 		void OnEvent(Event& event) override
