@@ -89,6 +89,14 @@ namespace WD {
 			pos.x += m_Acc.x * ts;
 			pos.y += m_Acc.y * ts;
 
+			Vector3 start = GetComponent<TransformComponent>().Translation;
+			start.z += 0.1f;
+			Vector3 end = start;
+			end.x += m_Acc.x;
+			end.y += m_Acc.y;
+
+			DebugRenderer::DrawLine(GetSelf().GetScene(), start, end, { 1, 0.2f, 0.05f, 1.0f }, 0.05f);
+
 			GetComponent<SpriteComponent>().Flipbook->SetFlipbook(m_Animator->GetCurrentFlipbook());
 		}
 

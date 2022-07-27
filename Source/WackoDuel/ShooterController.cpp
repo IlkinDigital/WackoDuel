@@ -3,6 +3,8 @@
 
 #include "BulletScript.h"
 
+#include "Engine/DebugRenderer.h"
+
 void WD::LeftShooterController::EmitBullet()
 {
 	if (m_Acc.x != 0.0f || m_Acc.y != 0.0f)

@@ -4,21 +4,32 @@
     <Filter Include="Generated">
       <UniqueIdentifier>{3416FE7D-A080-B2F4-E9BE-639A55689049}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WackoDuel">
+      <UniqueIdentifier>{04FEB5D3-7068-6A4A-B9A6-1BF02550489F}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\BulletScript.h" />
     <ClInclude Include="Source\Generated\Generated.h">
       <Filter>Generated</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ShooterController.h" />
+    <ClInclude Include="Source\WackoDuel\BulletScript.h">
+      <Filter>WackoDuel</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WackoDuel\ShooterController.h">
+      <Filter>WackoDuel</Filter>
+    </ClInclude>
     <ClInclude Include="Source\enginepch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\BulletScript.cpp" />
     <ClCompile Include="Source\Generated\Generated.cpp">
       <Filter>Generated</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ShooterController.cpp" />
+    <ClCompile Include="Source\WackoDuel\BulletScript.cpp">
+      <Filter>WackoDuel</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WackoDuel\ShooterController.cpp">
+      <Filter>WackoDuel</Filter>
+    </ClCompile>
     <ClCompile Include="Source\enginepch.cpp" />
   </ItemGroup>
 </Project>
