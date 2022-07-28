@@ -1,8 +1,8 @@
 #include "enginepch.h"
 #include "Generated.h"
 
-#include "BulletScript.h"
-#include "ShooterController.h"
+#include "WackoDuel\BulletScript.h"
+#include "WackoDuel\ShooterController.h"
 
 extern "C"
 {
