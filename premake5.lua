@@ -3,7 +3,7 @@ workspace 'WackoDuel'
     configurations{'Debug', 'Release', 'Distribution'}
 
 outputdir = '%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}'
-EnginePath = 'D:/Lester_Files/dev/Projects/VastEngine' 
+EnginePath = 'C:/LesterFiles/dev/A_Projects/VastEngine' 
 project 'WackoDuel'
     kind 'SharedLib'
     language 'C++'
